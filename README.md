@@ -84,7 +84,7 @@ failing tests pass but perserve the passing test results; (5) whether
 the fix comes from mutation-based fault localization or the
 synthesizer; and (6) the model after the fix.  Finally, the command
 reports the simplified fixed model if all tests pass.  Otherwise, the
-command reports the latest state of the model being fixed.
+command reports the latest state of the partially fixed model.
 
 The fixed Alloy model will be stored under the project hidden
 directory at `${project_dir}/.hidden/fix.als`.
