@@ -20,12 +20,12 @@ for patches that make all tests pass.
   - Java 8: Must be installed and accessible from `PATH`.
   - Bash 4.4: Must be installed and accessible from `PATH`.
   - Maven >3.5.2: Must be installed and accessible from `PATH`.
-  - Alloy 4.2: Must be in the classpath.  `ASketch` comes with
+  - Alloy 4.2: Must be in the classpath.  `ARepair` comes with
     Alloy4.2 under `libs/alloy.jar`.
 
 # Installation:
 
-## Clone ASketch repo
+## Clone ARepair repo
 
 To run `ARepair`, use `git` to clone the repository.
 
@@ -37,7 +37,7 @@ git clone git@github.com:kaiyuanw/ARepair.git
 
 To build `ARepair`, Java 8 and Maven 3.5.2 or above must be installed.
 Then, you can run `./arepair.sh --build` in Bash 4.4 to build
-`ASketch`.
+`ARepair`.
 
 # Quick Start:
 
