@@ -1,0 +1,25 @@
+# Mac
+.DS_Store
+
+# Intellij
+.idea/
+*.iml
+
+# Maven
+target/
+
+# AlloyRepair
+.hidden/
+experiments/*
+!experiments/models
+!experiments/realbugs
+!experiments/test-suite
+!experiments/meta
+!experiments/results
+
+# Python
+*.pyc
+
+# Other
+related-work/
+papers/
