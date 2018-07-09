@@ -89,7 +89,7 @@ command reports the latest state of the partially fixed model.
 The fixed Alloy model will be stored under the project hidden
 directory at `${project_dir}/.hidden/fix.als`.
 
-## Included Examples
+## Included Models
 
 We provide 38 real faulty Alloy models with labeled faults from
 [Amalgam](http://cs.brown.edu/research/plt/dl/fse2017/EXAMPLES/) and
