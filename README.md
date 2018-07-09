@@ -117,7 +117,7 @@ all 12 AUnit test suites.  The example models are listed below:
 
 To repair all 38 models run
 ```Shell
-./asketch.sh --run-all
+./arepair.sh --run-all
 ```
 The default settings is declared in `model.sh` and you should be able
 to reproduce the experimental results in the paper.  The logging files
