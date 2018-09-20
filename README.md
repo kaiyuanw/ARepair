@@ -5,7 +5,7 @@
 a faulty Alloy model (potentially with multiple faults) and a set of
 AUnit tests that capture the desired model properties, `ARepair` is
 able to repair the model so that all AUnit tests.  Internally,
-`ARepair` has three main compotents: a fault locator that is able to
+`ARepair` has three main components: a fault locator that is able to
 locate faults, a code generator that generate Alloy code fragments and
 a synthesizer that implements different search strategies to search
 for patches that make all tests pass.
@@ -45,11 +45,11 @@ Then, you can run `./arepair.sh --build` in Bash 4.4 to build
 
 To repair a faulty Alloy model, run
 ```Shell
-./arepair.sh --run -m <arg> -t <arg> -s <arg> -c <arg> -g <arg> [-e]
+./arepair.sh --run -m <arg> -t <arg> -s <arg> -c <arg> -g <arg> [-e] [-h <arg>] [-p <arg>] [-d <arg>]
 ```
 or use the full argument name
 ```Shell
-./arepair.sh --run --model-path <arg> --test-path <arg> --scope <arg> --minimum-cost <arg> --search-strategy <arg> [--enable-cache]
+./arepair.sh --run --model-path <arg> --test-path <arg> --scope <arg> --minimum-cost <arg> --search-strategy <arg> [--enable-cache] [--max-try-per-hole <arg>] [--partition-num <arg>] [--max-try-per-depth <arg>]
 ```
  * `-m,--model-path`: This argument is required.  Pass the faulty
    Alloy model to repair as the argument.
@@ -76,23 +76,34 @@ or use the full argument name
  * `-e,--enable-cache`: This argument is optional.  If this argument
    is specified, `ARepair` uses the hierarchical caching for repair.
    Otherwise, it does not.
+ * `-h,--max-try-per-hole`: This argument is only required when the
+   search strategy is `base-choice`.  Otherwise, it is optional.  Pass
+   the maximum number of candidate expressions to consider for each
+   hole during repair.
+ * `-p,--partition-num`: This argument is only required when the
+   search strategy is `all-combinations`.  Otherwise, it is optional.
+   Pass the number of partitions of the search space for a given hole.
+ * `-d,--max-try-per-depth`: This argument is only required when the
+   search strategy is `all-combinations`.  Otherwise, it is optional.
+   Pass the maximum number of combinations of candidate expressions to
+   consider for each depth of holes during repair.
 
 For each run, the command reports, for each iteration: (1) fault
 localization time; (2) the expression generation time; (3) the search
 space; (4) whether the current iteration successfully make some
-failing tests pass but perserve the passing test results; (5) whether
+failing tests pass but preserve the passing test results; (5) whether
 the fix comes from mutation-based fault localization or the
 synthesizer; and (6) the model after the fix.  Finally, the command
 reports the simplified fixed model if all tests pass.  Otherwise, the
 command reports the latest state of the partially fixed model.
 
 The fixed Alloy model will be stored under the project hidden
-directory at `${project_dir}/.hidden/fix.als`.
+directory at `${project_dir}/experiments/results/${model_name}.als`.
 
 ## Included Models
 
 We provide 38 real faulty Alloy models with labeled faults from
-[Amalgam](http://cs.brown.edu/research/plt/dl/fse2017/EXAMPLES/) and
+[Amalgam](http://cs.brown.edu/research/plt/dl/fse2017/EXAMPLES) and
 graduate students.  These models are derived from 12 models and we
 also provide the correct versions of the 12 models.  For each unique
 model, we provide a test suite that capture the desired properties of
