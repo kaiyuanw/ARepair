@@ -13,11 +13,11 @@ public class PatcherOpt extends Opt {
   protected final boolean enableCaching;
   protected final int minimumCost;
   protected final int maxTryPerHole;
-  protected final int maxPartitionNum;
+  protected final int partitionNum;
   protected final int maxTryPerDepth;
 
   public PatcherOpt(String modelPath, String testPath, int scope, SearchStrategy searchStrategy,
-      boolean enableCaching, int minimumCost, int maxTryPerHole, int maxPartitionNum,
+      boolean enableCaching, int minimumCost, int maxTryPerHole, int partitionNum,
       int maxTryPerDepth) {
     super(modelPath, null, scope);
     this.testSuitePath = testPath;
@@ -25,7 +25,7 @@ public class PatcherOpt extends Opt {
     this.enableCaching = enableCaching;
     this.minimumCost = minimumCost;
     this.maxTryPerHole = maxTryPerHole;
-    this.maxPartitionNum = maxPartitionNum;
+    this.partitionNum = partitionNum;
     this.maxTryPerDepth = maxTryPerDepth;
   }
 
@@ -49,8 +49,8 @@ public class PatcherOpt extends Opt {
     return maxTryPerHole;
   }
 
-  public int getMaxPartitionNum() {
-    return maxPartitionNum;
+  public int getPartitionNum() {
+    return partitionNum;
   }
 
   public int getMaxTryPerDepth() {

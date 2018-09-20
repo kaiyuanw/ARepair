@@ -12,11 +12,11 @@ import static patcher.etc.Constants.FIX_FILE_PATH;
 import static patcher.etc.Constants.MAX_ARITY;
 import static patcher.etc.Constants.MAX_DEPTH_OR_COST;
 import static patcher.etc.Constants.MAX_OP_NUM;
-import static patcher.etc.Constants.MAX_PARTITION_NUM;
 import static patcher.etc.Constants.MAX_TRY_NUM_PER_DEPTH;
 import static patcher.etc.Constants.MAX_TRY_PER_HOLE;
 import static patcher.etc.Constants.MINIMUM_COST;
 import static patcher.etc.Constants.MODEL_PATH;
+import static patcher.etc.Constants.PARTITION_NUM;
 import static patcher.etc.Constants.SCOPE;
 import static patcher.etc.Constants.SEARCH_STRATEGY;
 import static patcher.etc.Constants.SUSPICIOUSNESS_THRESHOLD;
@@ -230,7 +230,7 @@ public class Patcher {
             + " and whether to enable sub-formula caching.  If the search strategy is base-choice,"
             + " then --" + MAX_TRY_PER_HOLE
             + " must be set.  If the search strategy is all-combinations,"
-            + " then --" + MAX_PARTITION_NUM + " and --" + MAX_TRY_NUM_PER_DEPTH + " must be set."
+            + " then --" + PARTITION_NUM + " and --" + MAX_TRY_NUM_PER_DEPTH + " must be set."
     );
   }
 
@@ -257,7 +257,7 @@ public class Patcher {
     // Required for base choice search strategy.
     options.addOption("h", MAX_TRY_PER_HOLE, true, "Max number of tries per hole.");
     // Required for all combination search strategy.
-    options.addOption("p", MAX_PARTITION_NUM, true, "Max number of partitions.");
+    options.addOption("p", PARTITION_NUM, true, "Number of partitions.");
     options.addOption("d", MAX_TRY_NUM_PER_DEPTH, true, "Max number of tries per depth.");
 
     CommandLineParser parser = new DefaultParser();
@@ -301,7 +301,7 @@ public class Patcher {
         return null;
       }
       int maxTryPerHole = -1;
-      int maxPartition = -1;
+      int partitionNum = -1;
       int maxTryPerDepth = -1;
       switch (searchStrategy) {
         case BASE_CHOICE:
@@ -312,19 +312,19 @@ public class Patcher {
           }
           maxTryPerHole = Integer.parseInt(commandLine.getOptionValue(MAX_TRY_PER_HOLE));
         case ALL_COMBINATIONS:
-          if (!commandLine.hasOption(MAX_PARTITION_NUM) || !commandLine
+          if (!commandLine.hasOption(PARTITION_NUM) || !commandLine
               .hasOption(MAX_TRY_NUM_PER_DEPTH)) {
             logger.error(
-                searchStrategyOption + " requires options --" + MAX_PARTITION_NUM + " and --"
+                searchStrategyOption + " requires options --" + PARTITION_NUM + " and --"
                     + MAX_TRY_NUM_PER_DEPTH);
             printAlloyPatcherUsage();
             return null;
           }
-          maxPartition = Integer.parseInt(commandLine.getOptionValue(MAX_PARTITION_NUM));
+          partitionNum = Integer.parseInt(commandLine.getOptionValue(PARTITION_NUM));
           maxTryPerDepth = Integer.parseInt(commandLine.getOptionValue(MAX_TRY_NUM_PER_DEPTH));
       }
       return new PatcherOpt(modelPath, testPath, scope, searchStrategy,
-          commandLine.hasOption(ENABLE_CACHE), minimumCost, maxTryPerHole, maxPartition,
+          commandLine.hasOption(ENABLE_CACHE), minimumCost, maxTryPerHole, partitionNum,
           maxTryPerDepth);
     } catch (ParseException e) {
       logger.error(e.getMessage());

@@ -353,14 +353,14 @@ public class Synthesizer {
           // Try to explore simple expression combinations first, then explore more complex
           // expression combinations.
           List<Integer> partitions = expressionHoleSizesToExplore.stream()
-              .map(size -> Math.min(size, patcherOpt.getMaxPartitionNum()))
+              .map(size -> Math.min(size, patcherOpt.getPartitionNum()))
               .collect(Collectors.toList());
           List<List<Integer>> explorationOrders;
           if (PARTITION_CACHE.containsKey(partitions)) {
             explorationOrders = PARTITION_CACHE.get(partitions);
           } else {
             explorationOrders = computeExplorationOrders(partitions,
-                patcherOpt.getMaxPartitionNum());
+                patcherOpt.getPartitionNum());
             PARTITION_CACHE.put(partitions, explorationOrders);
           }
           logger.debug("Enumerating:");

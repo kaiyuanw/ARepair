@@ -35,7 +35,7 @@ public class Constants {
   // For basic choice strategy.
   public static final String MAX_TRY_PER_HOLE = "max-try-per-hole";
   // For all combination strategy.
-  public static final String MAX_PARTITION_NUM = "max-partition-num";
+  public static final String PARTITION_NUM = "partition-num";
   public static final String MAX_TRY_NUM_PER_DEPTH = "max-try-per-depth";
 
   /**
