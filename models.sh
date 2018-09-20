@@ -114,6 +114,10 @@ declare -g -A addrFaulty=(
         [test_name]="addr"
         [test_path]="${TEST_DIR}/addr.als"
         [minimum_cost]="3"
+        [cache_option]="--enable-cache"
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A arr1=(
@@ -124,6 +128,10 @@ declare -g -A arr1=(
         [test_name]="arr"
         [test_path]="${TEST_DIR}/arr.als"
         [minimum_cost]="3"
+        [cache_option]="--enable-cache"
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A arr2=(
@@ -134,6 +142,10 @@ declare -g -A arr2=(
         [test_name]="arr"
         [test_path]="${TEST_DIR}/arr.als"
         [minimum_cost]="3"
+        [cache_option]="--enable-cache"
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A balancedBST1=(
@@ -144,6 +156,10 @@ declare -g -A balancedBST1=(
         [test_name]="balancedBST"
         [test_path]="${TEST_DIR}/balancedBST.als"
         [minimum_cost]="3"
+        [cache_option]="--enable-cache"
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A balancedBST2=(
@@ -154,6 +170,10 @@ declare -g -A balancedBST2=(
         [test_name]="balancedBST"
         [test_path]="${TEST_DIR}/balancedBST.als"
         [minimum_cost]="3"
+        [cache_option]="--enable-cache"
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A balancedBST3=(
@@ -164,6 +184,10 @@ declare -g -A balancedBST3=(
         [test_name]="balancedBST"
         [test_path]="${TEST_DIR}/balancedBST.als"
         [minimum_cost]="5"
+        [cache_option]="--enable-cache"
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A bemplFaulty=(
@@ -174,6 +198,10 @@ declare -g -A bemplFaulty=(
         [test_name]="bempl"
         [test_path]="${TEST_DIR}/bempl.als"
         [minimum_cost]="3"
+        [cache_option]="--enable-cache"
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A cd1=(
@@ -184,6 +212,10 @@ declare -g -A cd1=(
         [test_name]="cd"
         [test_path]="${TEST_DIR}/cd.als"
         [minimum_cost]="3"
+        [cache_option]="--enable-cache"n
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A cd2=(
@@ -194,6 +226,10 @@ declare -g -A cd2=(
         [test_name]="cd"
         [test_path]="${TEST_DIR}/cd.als"
         [minimum_cost]="3"
+        [cache_option]="--enable-cache"
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A ctreeFaulty=(
@@ -204,6 +240,10 @@ declare -g -A ctreeFaulty=(
         [test_name]="ctree"
         [test_path]="${TEST_DIR}/ctree.als"
         [minimum_cost]="3"
+        [cache_option]="--enable-cache"
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A dll1=(
@@ -214,6 +254,10 @@ declare -g -A dll1=(
         [test_name]="dll"
         [test_path]="${TEST_DIR}/dll.als"
         [minimum_cost]="3"
+        [cache_option]="--enable-cache"
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A dll2=(
@@ -224,6 +268,10 @@ declare -g -A dll2=(
         [test_name]="dll"
         [test_path]="${TEST_DIR}/dll.als"
         [minimum_cost]="3"
+        [cache_option]="--enable-cache"
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A dll3=(
@@ -234,6 +282,10 @@ declare -g -A dll3=(
         [test_name]="dll"
         [test_path]="${TEST_DIR}/dll.als"
         [minimum_cost]="3"
+        [cache_option]="--enable-cache"
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A dll4=(
@@ -244,6 +296,10 @@ declare -g -A dll4=(
         [test_name]="dll"
         [test_path]="${TEST_DIR}/dll.als"
         [minimum_cost]="3"
+        [cache_option]="--enable-cache"
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A farmerFaulty=(
@@ -254,6 +310,10 @@ declare -g -A farmerFaulty=(
         [test_name]="farmer"
         [test_path]="${TEST_DIR}/farmer.als"
         [minimum_cost]="3"
+        [cache_option]=""
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A fsm1=(
@@ -264,6 +324,10 @@ declare -g -A fsm1=(
         [test_name]="fsm"
         [test_path]="${TEST_DIR}/fsm.als"
         [minimum_cost]="3"
+        [cache_option]="--enable-cache"
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A fsm2=(
@@ -274,6 +338,10 @@ declare -g -A fsm2=(
         [test_name]="fsm"
         [test_path]="${TEST_DIR}/fsm.als"
         [minimum_cost]="3"
+        [cache_option]="--enable-cache"
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A gradeFaulty=(
@@ -284,6 +352,10 @@ declare -g -A gradeFaulty=(
         [test_name]="grade"
         [test_path]="${TEST_DIR}/grade.als"
         [minimum_cost]="3"
+        [cache_option]="--enable-cache"
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A otherFaulty=(
@@ -294,6 +366,10 @@ declare -g -A otherFaulty=(
         [test_name]="other"
         [test_path]="${TEST_DIR}/other.als"
         [minimum_cost]="3"
+        [cache_option]="--enable-cache"
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A student1=(
@@ -304,6 +380,10 @@ declare -g -A student1=(
         [test_name]="student"
         [test_path]="${TEST_DIR}/student.als"
         [minimum_cost]="3"
+        [cache_option]="--enable-cache"
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A student2=(
@@ -314,6 +394,10 @@ declare -g -A student2=(
         [test_name]="student"
         [test_path]="${TEST_DIR}/student.als"
         [minimum_cost]="3"
+        [cache_option]="--enable-cache"
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A student3=(
@@ -324,6 +408,10 @@ declare -g -A student3=(
         [test_name]="student"
         [test_path]="${TEST_DIR}/student.als"
         [minimum_cost]="3"
+        [cache_option]="--enable-cache"
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A student4=(
@@ -334,6 +422,10 @@ declare -g -A student4=(
         [test_name]="student"
         [test_path]="${TEST_DIR}/student.als"
         [minimum_cost]="3"
+        [cache_option]="--enable-cache"
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A student5=(
@@ -344,6 +436,10 @@ declare -g -A student5=(
         [test_name]="student"
         [test_path]="${TEST_DIR}/student.als"
         [minimum_cost]="3"
+        [cache_option]="--enable-cache"
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A student6=(
@@ -354,6 +450,10 @@ declare -g -A student6=(
         [test_name]="student"
         [test_path]="${TEST_DIR}/student.als"
         [minimum_cost]="3"
+        [cache_option]="--enable-cache"
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A student7=(
@@ -364,6 +464,10 @@ declare -g -A student7=(
         [test_name]="student"
         [test_path]="${TEST_DIR}/student.als"
         [minimum_cost]="3"
+        [cache_option]="--enable-cache"
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A student8=(
@@ -374,6 +478,10 @@ declare -g -A student8=(
         [test_name]="student"
         [test_path]="${TEST_DIR}/student.als"
         [minimum_cost]="3"
+        [cache_option]="--enable-cache"
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A student9=(
@@ -384,6 +492,10 @@ declare -g -A student9=(
         [test_name]="student"
         [test_path]="${TEST_DIR}/student.als"
         [minimum_cost]="3"
+        [cache_option]="--enable-cache"
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A student10=(
@@ -394,6 +506,10 @@ declare -g -A student10=(
         [test_name]="student"
         [test_path]="${TEST_DIR}/student.als"
         [minimum_cost]="3"
+        [cache_option]="--enable-cache"
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A student11=(
@@ -404,6 +520,10 @@ declare -g -A student11=(
         [test_name]="student"
         [test_path]="${TEST_DIR}/student.als"
         [minimum_cost]="3"
+        [cache_option]="--enable-cache"
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A student12=(
@@ -414,6 +534,10 @@ declare -g -A student12=(
         [test_name]="student"
         [test_path]="${TEST_DIR}/student.als"
         [minimum_cost]="3"
+        [cache_option]="--enable-cache"
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A student13=(
@@ -424,6 +548,10 @@ declare -g -A student13=(
         [test_name]="student"
         [test_path]="${TEST_DIR}/student.als"
         [minimum_cost]="3"
+        [cache_option]="--enable-cache"
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A student14=(
@@ -434,6 +562,10 @@ declare -g -A student14=(
         [test_name]="student"
         [test_path]="${TEST_DIR}/student.als"
         [minimum_cost]="3"
+        [cache_option]="--enable-cache"
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A student15=(
@@ -444,6 +576,10 @@ declare -g -A student15=(
         [test_name]="student"
         [test_path]="${TEST_DIR}/student.als"
         [minimum_cost]="3"
+        [cache_option]="--enable-cache"
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A student16=(
@@ -454,6 +590,10 @@ declare -g -A student16=(
         [test_name]="student"
         [test_path]="${TEST_DIR}/student.als"
         [minimum_cost]="3"
+        [cache_option]="--enable-cache"
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A student17=(
@@ -464,6 +604,10 @@ declare -g -A student17=(
         [test_name]="student"
         [test_path]="${TEST_DIR}/student.als"
         [minimum_cost]="3"
+        [cache_option]="--enable-cache"
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A student18=(
@@ -474,6 +618,10 @@ declare -g -A student18=(
         [test_name]="student"
         [test_path]="${TEST_DIR}/student.als"
         [minimum_cost]="3"
+        [cache_option]="--enable-cache"
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )
 
 declare -g -A student19=(
@@ -484,4 +632,8 @@ declare -g -A student19=(
         [test_name]="student"
         [test_path]="${TEST_DIR}/student.als"
         [minimum_cost]="3"
+        [cache_option]=""
+        [max_try_per_hole]="1000"
+        [max_partition_num]="10"
+        [max_try_num_per_depth]="10000"
 )

@@ -24,7 +24,15 @@ function arepair_run_model() {
         local patch_dir="${RESULT_DIR}"
         mkdir -p "${HIDDEN_DIR}" "${meta_dir}" "${patch_dir}"
         echo "Repairing ${obj[model_name]}"
-        arepair_run --model-path "${obj[model_path]}" --test-path "${obj[test_path]}" --scope "${obj[scope]}" --minimum-cost "${obj[minimum_cost]}" --search-strategy "${SEARCH_STRATEGY}" "${CACHE_OPTION}" &> "${meta_dir}/${obj[model_name]}.txt"
+        arepair_run --model-path "${obj[model_path]}" \
+                    --test-path "${obj[test_path]}" \
+                    --scope "${obj[scope]}" \
+                    --minimum-cost "${obj[minimum_cost]}" \
+                    --search-strategy "${SEARCH_STRATEGY}" \
+                    "${cache_option}" \
+                    --max-try-per-hole "${obj[max_try_per_hole]}" \
+                    --max-partition-num "${obj[max_partition_num]}" \
+                    --max-try-per-depth "${obj[max_try_num_per_depth]}" |& tee "${meta_dir}/${obj[model_name]}.txt"
         cp "${FIXED_MODEL_PATH}" "${patch_dir}/${obj[model_name]}.als"
 }
 
