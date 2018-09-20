@@ -8,9 +8,6 @@ import static parser.etc.Names.UNDERSCORE;
 import static parser.util.AlloyUtil.getFirstNonNOOPChild;
 import static patcher.etc.Constants.FIX_FILE_PATH;
 import static patcher.etc.Constants.MAX_DEPTH_OR_COST;
-import static patcher.etc.Constants.MAX_PARTITION_NUM;
-import static patcher.etc.Constants.MAX_TRY_NUM_PER_DEPTH;
-import static patcher.etc.Constants.MAX_TRY_PER_HOLE;
 import static patcher.etc.Constants.getCostByDepth;
 import static patcher.etc.Constants.getCostByHeight;
 import static synthesizer.util.Cache.PARTITION_CACHE;
@@ -57,7 +54,7 @@ import parser.ast.nodes.SigDecl;
 import parser.ast.nodes.VarExpr;
 import parser.etc.Pair;
 import parser.util.FileUtil;
-import patcher.etc.SearchStrategy;
+import patcher.opt.PatcherOpt;
 import synthesizer.hole.ExprHole;
 import synthesizer.hole.Hole;
 import synthesizer.util.DepthInfo;
@@ -221,8 +218,7 @@ public class Synthesizer {
    * Returns true if some failing tests pass and no passing test fails.  Not necessary that all
    * failing tests pass.
    */
-  public boolean synthesize(Node faultyNode, DepthInfo depthInfo, SearchStrategy searchStrategy,
-      int lowestCost) {
+  public boolean synthesize(Node faultyNode, DepthInfo depthInfo, PatcherOpt patcherOpt) {
     // Find affected paragraph names.
     List<String> paraNames = findAffectedParagraphNames(faultyNode);
     assert paraNames != null;
@@ -277,7 +273,7 @@ public class Synthesizer {
         continue;
       }
       depthInfo.setLastVisitedDepth(i);
-      int currentCost = getCostByDepth(i, nodesByDepth.size() - 1, lowestCost);
+      int currentCost = getCostByDepth(i, nodesByDepth.size() - 1, patcherOpt.getMinimumCost());
       // Create holes and enumerate for solutions.
       List<Node> nodesToDigHoles = nodesByDepth.get(i);
       Map<Node, Hole> node2hole = new LinkedHashMap<>();
@@ -322,7 +318,7 @@ public class Synthesizer {
                   inliner));
         }
       }
-      switch (searchStrategy) {
+      switch (patcherOpt.getSearchStrategy()) {
         case ALL_COMBINATIONS:
           // Reset the number of combinations tried per depth.
           tried = 0;
@@ -344,7 +340,7 @@ public class Synthesizer {
           } else {
             // s1*k * s2*k * ... sn*k = MAX_TRY_NUM_PER_DEPTH.  k <= 1.0.
             kPercent = Math.min(1.0,
-                Math.pow(MAX_TRY_NUM_PER_DEPTH * 1.0 / operatorHoleSpace,
+                Math.pow(patcherOpt.getMaxTryPerDepth() * 1.0 / operatorHoleSpace,
                     1.0 / expressionHoleSizes.size()));
           }
           logger.debug(
@@ -357,13 +353,14 @@ public class Synthesizer {
           // Try to explore simple expression combinations first, then explore more complex
           // expression combinations.
           List<Integer> partitions = expressionHoleSizesToExplore.stream()
-              .map(size -> Math.min(size, MAX_PARTITION_NUM))
+              .map(size -> Math.min(size, patcherOpt.getMaxPartitionNum()))
               .collect(Collectors.toList());
           List<List<Integer>> explorationOrders;
           if (PARTITION_CACHE.containsKey(partitions)) {
             explorationOrders = PARTITION_CACHE.get(partitions);
           } else {
-            explorationOrders = computeExplorationOrders(partitions);
+            explorationOrders = computeExplorationOrders(partitions,
+                patcherOpt.getMaxPartitionNum());
             PARTITION_CACHE.put(partitions, explorationOrders);
           }
           logger.debug("Enumerating:");
@@ -386,7 +383,7 @@ public class Synthesizer {
           tried = 0;
           logger.debug("Enumerating:");
           if (findSolutionWithBasicChoice(node2hole, affectedFacts, affectedTests,
-              affectedTestInfos)) {
+              affectedTestInfos, patcherOpt)) {
             FileUtil.writeText(
                 modelToFix.accept(new PrettyStringWithHoleHandler(node2hole), null),
                 FIX_FILE_PATH, false);
@@ -396,7 +393,8 @@ public class Synthesizer {
           logger.info("Fix failed, number of combinations tried: " + tried);
           break;
         default:
-          throw new RuntimeException("Unsupported search strategy: " + searchStrategy);
+          throw new RuntimeException(
+              "Unsupported search strategy: " + patcherOpt.getSearchStrategy());
       }
     }
     return false;
@@ -426,7 +424,7 @@ public class Synthesizer {
    * evaluators.  Note that this parameter contains the actually tests to be invoked.
    */
   private boolean findSolutionWithBasicChoice(Map<Node, Hole> node2hole, List<String> affectedFacts,
-      Set<String> affectedTests, Map<String, TestInfo> affectedTestInfos) {
+      Set<String> affectedTests, Map<String, TestInfo> affectedTestInfos, PatcherOpt patcherOpt) {
     // Deactivate all holes.
     node2hole.forEach((node, hole) -> hole.setActive(false));
     for (Map.Entry<Node, Hole> entry : node2hole.entrySet()) {
@@ -435,7 +433,8 @@ public class Synthesizer {
       hole.setActive(true);
       int maxFailToPass = 0;
       Fragment bestFragment = null;
-      for (int i = 0; i < Math.min(hole.getFragments().size(), MAX_TRY_PER_HOLE); i++) {
+      for (int i = 0; i < Math.min(hole.getFragments().size(), patcherOpt.getMaxTryPerHole());
+          i++) {
         // Increase the number of combinations tried.
         tried += 1;
         Fragment fragment = hole.getFragments().get(i);

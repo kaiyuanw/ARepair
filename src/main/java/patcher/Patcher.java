@@ -12,12 +12,16 @@ import static patcher.etc.Constants.FIX_FILE_PATH;
 import static patcher.etc.Constants.MAX_ARITY;
 import static patcher.etc.Constants.MAX_DEPTH_OR_COST;
 import static patcher.etc.Constants.MAX_OP_NUM;
+import static patcher.etc.Constants.MAX_PARTITION_NUM;
+import static patcher.etc.Constants.MAX_TRY_NUM_PER_DEPTH;
+import static patcher.etc.Constants.MAX_TRY_PER_HOLE;
 import static patcher.etc.Constants.MINIMUM_COST;
 import static patcher.etc.Constants.MODEL_PATH;
 import static patcher.etc.Constants.SCOPE;
 import static patcher.etc.Constants.SEARCH_STRATEGY;
 import static patcher.etc.Constants.SUSPICIOUSNESS_THRESHOLD;
 import static patcher.etc.Constants.TEST_PATH;
+import static patcher.etc.SearchStrategy.ALL_COMBINATIONS;
 
 import alloyfl.coverage.util.TestResult;
 import alloyfl.coverage.util.TestRunner;
@@ -132,8 +136,7 @@ public class Patcher {
           Node rankedNode = rankedNodes.get(i);
           logger.debug("Rank Node " + i + ":");
           logger.debug(rankedNode.accept(opt.getPSV(), null));
-          if (synthesizer
-              .synthesize(rankedNode, depthInfo, opt.getSearchStrategy(), opt.getMinimumCost())) {
+          if (synthesizer.synthesize(rankedNode, depthInfo, opt)) {
             logger.info("Fixed by synthesizer:");
             System.out.println(FileUtil.readText(FIX_FILE_PATH));
             logger.info("==========");
@@ -151,7 +154,8 @@ public class Patcher {
     logger.info("Raw patched model:");
     System.out.println(FileUtil.readText(FIX_FILE_PATH));
     logger.info("After simplification:");
-    String simplifiedModel = simplify(new ModelUnit(null, AlloyUtil.compileAlloyModule(FIX_FILE_PATH)));
+    String simplifiedModel = simplify(
+        new ModelUnit(null, AlloyUtil.compileAlloyModule(FIX_FILE_PATH)));
     FileUtil.writeText(simplifiedModel, FIX_FILE_PATH, false);
     System.out.println(simplifiedModel);
   }
@@ -214,7 +218,7 @@ public class Patcher {
       case "base-choice":
         return SearchStrategy.BASE_CHOICE;
       case "all-combinations":
-        return SearchStrategy.ALL_COMBINATIONS;
+        return ALL_COMBINATIONS;
       default:
         return null;
     }
@@ -223,7 +227,10 @@ public class Patcher {
   private static void printAlloyPatcherUsage() {
     logger.info(
         "Patcher requires: model path, test path, scope, lowest cost, search strategy"
-            + " and whether to enable sub-formula caching."
+            + " and whether to enable sub-formula caching.  If the search strategy is base-choice,"
+            + " then --" + MAX_TRY_PER_HOLE
+            + " must be set.  If the search strategy is all-combinations,"
+            + " then --" + MAX_PARTITION_NUM + " and --" + MAX_TRY_NUM_PER_DEPTH + " must be set."
     );
   }
 
@@ -245,8 +252,13 @@ public class Patcher {
     options.addRequiredOption("s", SCOPE, true, "Scope to run all AUnit tests properly.");
     options.addRequiredOption("c", MINIMUM_COST, true,
         "Minimum cost/size of the generate expressions.");
-    options.addRequiredOption("g", SEARCH_STRATEGY, true, "Search strategy of the synthesizer.");
     options.addOption("e", ENABLE_CACHE, false, "Enable hierarchical caching.");
+    options.addRequiredOption("g", SEARCH_STRATEGY, true, "Search strategy of the synthesizer.");
+    // Required for base choice search strategy.
+    options.addOption("h", MAX_TRY_PER_HOLE, true, "Max number of tries per hole.");
+    // Required for all combination search strategy.
+    options.addOption("p", MAX_PARTITION_NUM, true, "Max number of partitions.");
+    options.addOption("d", MAX_TRY_NUM_PER_DEPTH, true, "Max number of tries per depth.");
 
     CommandLineParser parser = new DefaultParser();
     HelpFormatter formatter = new HelpFormatter();
@@ -288,8 +300,32 @@ public class Patcher {
         printAlloyPatcherUsage();
         return null;
       }
+      int maxTryPerHole = -1;
+      int maxPartition = -1;
+      int maxTryPerDepth = -1;
+      switch (searchStrategy) {
+        case BASE_CHOICE:
+          if (!commandLine.hasOption(MAX_TRY_PER_HOLE)) {
+            logger.error(searchStrategyOption + " requires option --" + MAX_TRY_PER_HOLE);
+            printAlloyPatcherUsage();
+            return null;
+          }
+          maxTryPerHole = Integer.parseInt(commandLine.getOptionValue(MAX_TRY_PER_HOLE));
+        case ALL_COMBINATIONS:
+          if (!commandLine.hasOption(MAX_PARTITION_NUM) || !commandLine
+              .hasOption(MAX_TRY_NUM_PER_DEPTH)) {
+            logger.error(
+                searchStrategyOption + " requires options --" + MAX_PARTITION_NUM + " and --"
+                    + MAX_TRY_NUM_PER_DEPTH);
+            printAlloyPatcherUsage();
+            return null;
+          }
+          maxPartition = Integer.parseInt(commandLine.getOptionValue(MAX_PARTITION_NUM));
+          maxTryPerDepth = Integer.parseInt(commandLine.getOptionValue(MAX_TRY_NUM_PER_DEPTH));
+      }
       return new PatcherOpt(modelPath, testPath, scope, searchStrategy,
-          commandLine.hasOption(ENABLE_CACHE), minimumCost);
+          commandLine.hasOption(ENABLE_CACHE), minimumCost, maxTryPerHole, maxPartition,
+          maxTryPerDepth);
     } catch (ParseException e) {
       logger.error(e.getMessage());
       printARepairUsage(formatter, options);

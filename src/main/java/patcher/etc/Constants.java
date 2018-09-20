@@ -5,8 +5,6 @@ import static parser.etc.Names.HIDDEN_DIR_PATH;
 
 import generator.etc.BoundType;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.List;
 
 public class Constants {
 
@@ -21,10 +19,10 @@ public class Constants {
   // The minimum suspiciousness score to consider the mutation as a fix.
   public static final double SUSPICIOUSNESS_THRESHOLD = 0.95;
   // For basic choice strategy.
-  public static final int MAX_TRY_PER_HOLE = 1000;
+//  public static final int MAX_TRY_PER_HOLE = 1000;
   // For all combination strategy.
-  public static final int MAX_PARTITION_NUM = 10;
-  public static final int MAX_TRY_NUM_PER_DEPTH = 10000;
+//  public static final int MAX_PARTITION_NUM = 10;
+//  public static final int MAX_TRY_NUM_PER_DEPTH = 10000;
 
   // Commandline arguments.
   public static final int CLI_USAGE_DESCRIPTION_WIDTH = 1000;
@@ -34,6 +32,11 @@ public class Constants {
   public static final String MINIMUM_COST = "minimum-cost";
   public static final String SEARCH_STRATEGY = "search-strategy";
   public static final String ENABLE_CACHE = "enable-cache";
+  // For basic choice strategy.
+  public static final String MAX_TRY_PER_HOLE = "max-try-per-hole";
+  // For all combination strategy.
+  public static final String MAX_PARTITION_NUM = "max-partition-num";
+  public static final String MAX_TRY_NUM_PER_DEPTH = "max-try-per-depth";
 
   /**
    * Return the cost of the height.

@@ -9,7 +9,6 @@ import static parser.etc.Names.DOLLAR;
 import static parser.etc.Names.UNDERSCORE;
 import static parser.util.AlloyUtil.findFirstAncestorWithType;
 import static parser.util.AlloyUtil.getFirstNonNOOPChild;
-import static patcher.etc.Constants.MAX_PARTITION_NUM;
 import static synthesizer.visitor.FactCollector.SIG_FACT;
 import static synthesizer.visitor.FactCollector.X;
 
@@ -207,11 +206,12 @@ public class Util {
    * E.g. Given [3, 5, 10], we want to generate [1, 1, 1], [1, 1, 2], [1, 2, 1], [2, 1, 1] up to [3,
    * 5, 10].
    */
-  public static List<List<Integer>> computeExplorationOrders(List<Integer> partitions) {
+  public static List<List<Integer>> computeExplorationOrders(List<Integer> partitions,
+      Integer maxPartitionNum) {
     List<List<Integer>> res = new ArrayList<>();
     backtrack(res, new Stack<>(), partitions, 0);
     res.sort((p1, p2) -> {
-      int minA = MAX_PARTITION_NUM;
+      int minA = maxPartitionNum;
       int maxA = -1;
       int sumA = 0;
       for (int e : p1) {
@@ -219,7 +219,7 @@ public class Util {
         maxA = Math.max(maxA, e);
         sumA += e;
       }
-      int minB = MAX_PARTITION_NUM;
+      int minB = maxPartitionNum;
       int maxB = -1;
       int sumB = 0;
       for (int e : p2) {
