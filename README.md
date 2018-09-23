@@ -76,17 +76,19 @@ or use the full argument name
  * `-e,--enable-cache`: This argument is optional.  If this argument
    is specified, `ARepair` uses the hierarchical caching for repair.
    Otherwise, it does not.
- * `-h,--max-try-per-hole`: This argument is only required when the
-   search strategy is `base-choice`.  Otherwise, it is optional.  Pass
-   the maximum number of candidate expressions to consider for each
-   hole during repair.
- * `-p,--partition-num`: This argument is only required when the
-   search strategy is `all-combinations`.  Otherwise, it is optional.
-   Pass the number of partitions of the search space for a given hole.
- * `-d,--max-try-per-depth`: This argument is only required when the
-   search strategy is `all-combinations`.  Otherwise, it is optional.
-   Pass the maximum number of combinations of candidate expressions to
-   consider for each depth of holes during repair.
+ * `-h,--max-try-per-hole`: This argument is optional and is used when
+   the search strategy is `base-choice`.  Pass the maximum number of
+   candidate expressions to consider for each hole during repair.  If
+   the argument is not specified, a default value of 1000 is used.
+ * `-p,--partition-num`: This argument is optional and is used when
+   the search strategy is `all-combinations`.  Pass the number of
+   partitions of the search space for a given hole.  If the argument
+   is not specified, a default value of 10 is used.
+ * `-d,--max-try-per-depth`: This argument is optional and is used
+   when the search strategy is `all-combinations`.  Pass the maximum
+   number of combinations of candidate expressions to consider for
+   each depth of holes during repair.  If the argument is not
+   specified, a default value of 10000 is used.
 
 For each run, the command reports, for each iteration: (1) fault
 localization time; (2) the expression generation time; (3) the search
