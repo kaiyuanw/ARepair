@@ -19,10 +19,10 @@ public class Constants {
   // The minimum suspiciousness score to consider the mutation as a fix.
   public static final double SUSPICIOUSNESS_THRESHOLD = 0.95;
   // For basic choice strategy.
-//  public static final int MAX_TRY_PER_HOLE = 1000;
+  public static final int DEFAULT_NUM_TRY_PER_HOLE = 1000;
   // For all combination strategy.
-//  public static final int MAX_PARTITION_NUM = 10;
-//  public static final int MAX_TRY_NUM_PER_DEPTH = 10000;
+  public static final int DEFAULT_PARTITION_NUM = 10;
+  public static final int DEFAULT_NUM_TRY_NUM_PER_DEPTH = 10000;
 
   // Commandline arguments.
   public static final int CLI_USAGE_DESCRIPTION_WIDTH = 1000;

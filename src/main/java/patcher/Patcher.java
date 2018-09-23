@@ -7,6 +7,9 @@ import static parser.util.AlloyUtil.countDescendantNum;
 import static parser.util.AlloyUtil.mergeModelAndTests;
 import static patcher.etc.Constants.BOUND_TYPE;
 import static patcher.etc.Constants.CLI_USAGE_DESCRIPTION_WIDTH;
+import static patcher.etc.Constants.DEFAULT_NUM_TRY_NUM_PER_DEPTH;
+import static patcher.etc.Constants.DEFAULT_NUM_TRY_PER_HOLE;
+import static patcher.etc.Constants.DEFAULT_PARTITION_NUM;
 import static patcher.etc.Constants.ENABLE_CACHE;
 import static patcher.etc.Constants.FIX_FILE_PATH;
 import static patcher.etc.Constants.MAX_ARITY;
@@ -300,28 +303,25 @@ public class Patcher {
         printAlloyPatcherUsage();
         return null;
       }
-      int maxTryPerHole = -1;
-      int partitionNum = -1;
-      int maxTryPerDepth = -1;
+      int maxTryPerHole = DEFAULT_NUM_TRY_PER_HOLE;
+      int partitionNum = DEFAULT_PARTITION_NUM;
+      int maxTryPerDepth = DEFAULT_NUM_TRY_NUM_PER_DEPTH;
       switch (searchStrategy) {
         case BASE_CHOICE:
-          if (!commandLine.hasOption(MAX_TRY_PER_HOLE)) {
-            logger.error(searchStrategyOption + " requires option --" + MAX_TRY_PER_HOLE);
-            printAlloyPatcherUsage();
-            return null;
+          if (commandLine.hasOption(MAX_TRY_PER_HOLE)) {
+            maxTryPerHole = Integer.parseInt(commandLine.getOptionValue(MAX_TRY_PER_HOLE));
           }
-          maxTryPerHole = Integer.parseInt(commandLine.getOptionValue(MAX_TRY_PER_HOLE));
+          break;
         case ALL_COMBINATIONS:
-          if (!commandLine.hasOption(PARTITION_NUM) || !commandLine
-              .hasOption(MAX_TRY_NUM_PER_DEPTH)) {
-            logger.error(
-                searchStrategyOption + " requires options --" + PARTITION_NUM + " and --"
-                    + MAX_TRY_NUM_PER_DEPTH);
-            printAlloyPatcherUsage();
-            return null;
+          if (commandLine.hasOption(PARTITION_NUM)) {
+            partitionNum = Integer.parseInt(commandLine.getOptionValue(PARTITION_NUM));
           }
-          partitionNum = Integer.parseInt(commandLine.getOptionValue(PARTITION_NUM));
-          maxTryPerDepth = Integer.parseInt(commandLine.getOptionValue(MAX_TRY_NUM_PER_DEPTH));
+          if (commandLine.hasOption(MAX_TRY_NUM_PER_DEPTH)) {
+            maxTryPerDepth = Integer.parseInt(commandLine.getOptionValue(MAX_TRY_NUM_PER_DEPTH));
+          }
+          break;
+        default:
+          throw new RuntimeException("Should not happen");
       }
       return new PatcherOpt(modelPath, testPath, scope, searchStrategy,
           commandLine.hasOption(ENABLE_CACHE), minimumCost, maxTryPerHole, partitionNum,
