@@ -63,32 +63,33 @@ or use the full argument name
    AUnit tests following the
    [examples](https://github.com/kaiyuanw/ARepair/tree/master/experiments/test-suite).
  * `-s,--scope`: This argument is required.  Pass the Alloy scope for
-   repairing the faulty Alloy model.  The scope should be larger than
-   or equal to the minimum scope necessary to run all AUnit tests
-   properly.
+   repairing the faulty Alloy model as the argument.  The scope should
+   be larger than or equal to the minimum scope necessary to run all
+   AUnit tests properly.
  * `-c,--minimum-cost`: This argument is required.  Pass the minimum
-  cost/size of the expression to generate.  The internal code
-  generator will generated expressions of the specified size for the
-  deepest level of the suspicious AST.
+  cost/size of the expression to generate as the argument.  The
+  internal code generator will generated expressions of the specified
+  size for the deepest level of the suspicious AST.
  * `-g,--search-strategy`: This argument is required.  Pass the search
-   strategy to use for the internal synthesizer.  The value should be
-   either `all-combinations` or `base-choice`.
+   strategy to use for the internal synthesizer as the argument.  The
+   value should be either `all-combinations` or `base-choice`.
  * `-e,--enable-cache`: This argument is optional.  If this argument
    is specified, `ARepair` uses the hierarchical caching for repair.
    Otherwise, it does not.
  * `-h,--max-try-per-hole`: This argument is optional and is used when
    the search strategy is `base-choice`.  Pass the maximum number of
-   candidate expressions to consider for each hole during repair.  If
-   the argument is not specified, a default value of 1000 is used.
+   candidate expressions to consider for each hole during repair as
+   the argument.  If the argument is not specified, a default value of
+   1000 is used.
  * `-p,--partition-num`: This argument is optional and is used when
    the search strategy is `all-combinations`.  Pass the number of
-   partitions of the search space for a given hole.  If the argument
-   is not specified, a default value of 10 is used.
+   partitions of the search space for a given hole as the argument.
+   If the argument is not specified, a default value of 10 is used.
  * `-d,--max-try-per-depth`: This argument is optional and is used
    when the search strategy is `all-combinations`.  Pass the maximum
    number of combinations of candidate expressions to consider for
-   each depth of holes during repair.  If the argument is not
-   specified, a default value of 10000 is used.
+   each depth of holes during repair as the argument.  If the argument
+   is not specified, a default value of 10000 is used.
 
 For each run, the command reports, for each iteration: (1) fault
 localization time; (2) the expression generation time; (3) the search
