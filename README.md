@@ -69,7 +69,11 @@ or use the full argument name
  * `-c,--minimum-cost`: This argument is required.  Pass the minimum
   cost/size of the expression to generate as the argument.  The
   internal code generator will generate expressions of the specified
-  size for the deepest level of the suspicious AST.
+  size for the deepest level of the suspicious AST.  If the value is
+  `x` and the deepest level of the AST is `d`, then the generator
+  generates expressions of size up to `x+i` for depth `d-i` when
+  `i<3`.  When `i>=3`, the generator generates expressions of size up
+  to `x+3`.
  * `-g,--search-strategy`: This argument is required.  Pass the search
    strategy to use for the internal synthesizer as the argument.  The
    value should be either `all-combinations` or `base-choice`.
