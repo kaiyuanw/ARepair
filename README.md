@@ -68,7 +68,7 @@ or use the full argument name
    AUnit tests properly.
  * `-c,--minimum-cost`: This argument is required.  Pass the minimum
   cost/size of the expression to generate as the argument.  The
-  internal code generator will generated expressions of the specified
+  internal code generator will generate expressions of the specified
   size for the deepest level of the suspicious AST.
  * `-g,--search-strategy`: This argument is required.  Pass the search
    strategy to use for the internal synthesizer as the argument.  The
