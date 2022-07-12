@@ -1,31 +1,5 @@
 package patcher;
 
-import static clean.ModelSimplifier.simplify;
-import static parser.etc.Context.logger;
-import static parser.etc.Context.timer;
-import static parser.util.AlloyUtil.countDescendantNum;
-import static parser.util.AlloyUtil.mergeModelAndTests;
-import static patcher.etc.Constants.BOUND_TYPE;
-import static patcher.etc.Constants.CLI_USAGE_DESCRIPTION_WIDTH;
-import static patcher.etc.Constants.DEFAULT_NUM_TRY_NUM_PER_DEPTH;
-import static patcher.etc.Constants.DEFAULT_NUM_TRY_PER_HOLE;
-import static patcher.etc.Constants.DEFAULT_PARTITION_NUM;
-import static patcher.etc.Constants.ENABLE_CACHE;
-import static patcher.etc.Constants.FIX_FILE_PATH;
-import static patcher.etc.Constants.MAX_ARITY;
-import static patcher.etc.Constants.MAX_DEPTH_OR_COST;
-import static patcher.etc.Constants.MAX_OP_NUM;
-import static patcher.etc.Constants.MAX_TRY_NUM_PER_DEPTH;
-import static patcher.etc.Constants.MAX_TRY_PER_HOLE;
-import static patcher.etc.Constants.MINIMUM_COST;
-import static patcher.etc.Constants.MODEL_PATH;
-import static patcher.etc.Constants.PARTITION_NUM;
-import static patcher.etc.Constants.SCOPE;
-import static patcher.etc.Constants.SEARCH_STRATEGY;
-import static patcher.etc.Constants.SUSPICIOUSNESS_THRESHOLD;
-import static patcher.etc.Constants.TEST_PATH;
-import static patcher.etc.SearchStrategy.ALL_COMBINATIONS;
-
 import alloyfl.coverage.util.TestResult;
 import alloyfl.coverage.util.TestRunner;
 import alloyfl.hybrid.visitor.DescendantCollector;
@@ -36,21 +10,7 @@ import fl.MutationImpact;
 import generator.Generator;
 import generator.opt.GeneratorOpt;
 import generator.util.TypeAnalyzer;
-import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.*;
 import parser.ast.nodes.ModelUnit;
 import parser.ast.nodes.Node;
 import parser.util.AlloyUtil;
@@ -61,12 +21,25 @@ import patcher.opt.PatcherOpt;
 import synthesizer.Synthesizer;
 import synthesizer.util.DepthInfo;
 
+import java.nio.file.Paths;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static clean.ModelSimplifier.simplify;
+import static parser.etc.Context.logger;
+import static parser.etc.Context.timer;
+import static parser.util.AlloyUtil.countDescendantNum;
+import static parser.util.AlloyUtil.mergeModelAndTests;
+import static patcher.etc.Constants.*;
+import static patcher.etc.SearchStrategy.ALL_COMBINATIONS;
+
 public class Patcher {
 
   public static void patch(PatcherOpt opt) {
     CompModule modelModule = AlloyUtil.compileAlloyModule(opt.getModelPath());
     assert modelModule != null;
     ModelUnit modelUnit = new ModelUnit(null, modelModule);
+    FileUtil.createDirsIfNotExist(); //Creates the .hidden directory that is expected to exist
     FileUtil.writeText(modelUnit.accept(opt.getPSV(), null), FIX_FILE_PATH, false);
     logger.info("Original model:");
     System.out.println(FileUtil.readText(FIX_FILE_PATH));
