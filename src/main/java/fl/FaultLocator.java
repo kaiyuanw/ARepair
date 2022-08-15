@@ -6,7 +6,6 @@ import static parser.etc.Names.IGNORE_NAMES;
 
 import alloyfl.mutation.opt.FaultLocatorOpt;
 import alloyfl.mutation.util.ScoreInfo;
-import alloyfl.mutation.util.TestRunner;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -56,6 +55,7 @@ import parser.ast.nodes.VarExpr;
 import parser.ast.visitor.VoidVisitorAdapter;
 import parser.etc.MutationData;
 import patcher.opt.PatcherOpt;
+import testRunner.TestRunner;
 
 public class FaultLocator extends VoidVisitorAdapter<Object> {
 
