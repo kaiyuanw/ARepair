@@ -27,7 +27,6 @@ import static patcher.etc.Constants.TEST_PATH;
 import static patcher.etc.SearchStrategy.ALL_COMBINATIONS;
 
 import alloyfl.coverage.util.TestResult;
-import alloyfl.coverage.util.TestRunner;
 import alloyfl.hybrid.visitor.DescendantCollector;
 import alloyfl.mutation.util.ScoreInfo;
 import edu.mit.csail.sdg.parser.CompModule;
@@ -60,6 +59,7 @@ import patcher.etc.SearchStrategy;
 import patcher.opt.PatcherOpt;
 import synthesizer.Synthesizer;
 import synthesizer.util.DepthInfo;
+import testRunner.TestRunner;
 
 public class Patcher {
 
